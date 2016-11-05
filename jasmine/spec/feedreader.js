@@ -10,9 +10,9 @@
  */
 $(function() {
     /* This is our first test suite - a test suite just contains
-    * a related set of tests. This suite is all about the RSS
-    * feeds definitions, the allFeeds variable in our application.
-    */
+     * a related set of tests. This suite is all about the RSS
+     * feeds definitions, the allFeeds variable in our application.
+     */
     describe('RSS Feeds', function() {
         /* This is our first test - it tests to make sure that the
          * allFeeds variable has been defined and that it is not
@@ -21,10 +21,10 @@ $(function() {
          * allFeeds in app.js to be an empty array and refresh the
          * page?
          */
-        it('are defined', function() {
+         it('are defined', function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
-        });
+         });
 
 
         /* a test that loops through each feed
@@ -57,10 +57,10 @@ $(function() {
         /* a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
+             * hiding/showing of the menu element.
          */
          it('is hiden when page is loaded', function() {
-            expect($('body').hasClass('menu-hidden')).toBe(true);
+            expect($('body').hasClass('menu-hidden')).toBeTruthy();
          });
 
          /* a test that ensures the menu changes
@@ -68,15 +68,13 @@ $(function() {
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
-          it('changes visibility when menu icon is clicked', function() {
+         it('changes visibility when menu icon is clicked', function() {
             $('.menu-icon-link').trigger('click');
-            expect($('body').hasClass('menu-hidden')).toBe(false);
+            expect($('body').hasClass('menu-hidden')).toBeFalsy();
 
             $('.menu-icon-link').trigger('click');
-            expect($('body').hasClass('menu-hidden')).toBe(true);
-          });
-
-
+            expect($('body').hasClass('menu-hidden')).toBeTruthy();
+         });
     });
 
     describe('Initial Entries', function() {
@@ -86,14 +84,13 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
-         beforeEach(function(done){
-            loadFeed(0, done);
+         beforeEach(function(){
+            loadFeed(0);
          });
 
-         it('should have at least one entry', function(done) {
+         it('should have at least one entry', function() {
             var num = $('.feed, .entry').length;
-            expect(10).toBeGreaterThan(0);
-            done();
+            expect(num).toBeGreaterThan(0);
          });
     });
 
@@ -111,12 +108,11 @@ $(function() {
                     contentAfter = $('.feed').html();
                     done();
                 });
-            });    
+            });
          });
 
-         it('content changes when a new feed is loaded', function(done) {
+         it('content changes when a new feed is loaded', function() {
             expect(contentBefore).not.toEqual(contentAfter);
-            done();
          });
     });
 }());
